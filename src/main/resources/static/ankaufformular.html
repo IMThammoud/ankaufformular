@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankauf Formular · Lap</title>
+<link rel="stylesheet" href="css/pico.min.css">
+<style>
+  /* Kleine Ergänzungen, die Pico nicht mitbringt */
+  :root{
+    --lap-navy: #10233f;
+    --lap-green: #3fae72;
+  }
+
+  header.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+    margin-bottom: 2rem;
+  }
+  header.topbar h1{
+    margin:0;
+    font-size: 1.8rem;
+  }
+  .logo-diamond{
+    width: 64px;
+    height: 64px;
+    border: 2px solid var(--lap-navy);
+    transform: rotate(45deg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex: 0 0 auto;
+  }
+  .logo-diamond span{
+    transform: rotate(-45deg);
+    text-align:center;
+    font-weight:700;
+    font-size: 0.62rem;
+    line-height: 1.15;
+  }
+  .operator{
+    font-size: 0.85rem;
+    text-align:right;
+    color: var(--pico-muted-color);
+    white-space: nowrap;
+  }
+
+  .intro{
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  fieldset{
+    border: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  fieldset > legend{
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+    padding: 0;
+  }
+
+  .radio-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+  }
+  .radio-row label{
+    display:flex;
+    align-items:center;
+    gap: 0.5rem;
+    width: auto;
+  }
+
+  .help-dot{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--pico-color);
+    font-size: 0.65rem;
+    font-weight: 700;
+    cursor: help;
+    margin-left: 0.35rem;
+  }
+
+  .upload-row{
+    display:flex;
+    align-items:center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .upload-row button{
+    width: auto;
+    background: var(--lap-green);
+    border-color: var(--lap-green);
+  }
+  .file-hint{
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+  }
+  #file-list{
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  article.legal{
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+    background: var(--pico-card-background-color);
+  }
+  article.legal p:last-child{ margin-bottom: 0; }
+
+  button[type="submit"]{
+    background: var(--lap-green);
+    border-color: var(--lap-green);
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<main class="container">
+
+  <header class="topbar">
+    <h1>Ankauf Formular</h1>
+    <div class="logo-diamond"><span>Lap<br>Logo</span></div>
+    <div class="operator">Betreiber:<br>Hassan Hammoud</div>
+  </header>
+
+  <p class="intro">
+    Bitte füllen Sie die Felder des Ankaufformulars bestmöglich aus.
+    Dieses Formular ist unverbindlich und schickt uns lediglich Ihre
+    Preisanfrage für Ihr Gerät.
+  </p>
+
+  <form id="ankauf-form">
+
+    <!-- Hersteller / Modell -->
+    <div class="grid">
+      <label for="hersteller">
+        Hersteller
+        <select id="hersteller" name="hersteller" required>
+          <option value="" disabled selected>Bitte wählen</option>
+          <option>Apple</option>
+          <option>Dell</option>
+          <option>HP</option>
+          <option>Lenovo</option>
+          <option>Asus</option>
+          <option>Acer</option>
+          <option>Microsoft</option>
+          <option>Sonstiges</option>
+        </select>
+      </label>
+      <label for="modell">
+        Modell <span class="help-dot" title="Genaue Modellbezeichnung, z.B. MacBook Pro 14&quot; 2021">?</span>
+        <select id="modell" name="modell" required disabled>
+          <option value="" disabled selected>Zuerst Hersteller wählen</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- RAM / SSD -->
+    <div class="grid">
+      <label for="ram">
+        Arbeitsspeicher / RAM
+        <select id="ram" name="ram" required>
+          <option value="" disabled selected>Bitte wählen</option>
+          <option>4 GB</option>
+          <option>8 GB</option>
+          <option>16 GB</option>
+          <option>32 GB</option>
+          <option>64 GB</option>
+        </select>
+      </label>
+      <label for="speicher">
+        Speicher / SSD
+        <select id="speicher" name="speicher" required>
+          <option value="" disabled selected>Bitte wählen</option>
+          <option>128 GB</option>
+          <option>256 GB</option>
+          <option>512 GB</option>
+          <option>1 TB</option>
+          <option>2 TB</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Tastatur Layout -->
+    <fieldset>
+      <legend>Tastatur Layout</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="tastatur" value="deutsch" required> Deutsch</label>
+        <label><input type="radio" name="tastatur" value="nicht-deutsch"> Nicht Deutsch</label>
+      </div>
+    </fieldset>
+
+    <!-- Technisch einwandfrei -->
+    <div class="grid">
+      <fieldset>
+        <legend>Technisch einwandfrei?</legend>
+        <div class="radio-row">
+          <label><input type="radio" name="einwandfrei" value="ja" required> Ja</label>
+          <label><input type="radio" name="einwandfrei" value="nein"> Nein</label>
+        </div>
+      </fieldset>
+      <label for="maengel">
+        Beschreibung der Mängel
+        <textarea id="maengel" name="maengel" rows="3" placeholder="z.B. Akku hält nicht lange, Kratzer am Deckel …"></textarea>
+      </label>
+    </div>
+
+    <!-- Zustand Gehäuse -->
+    <fieldset>
+      <legend>Zustand des Gehäuses/Shells</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="zustand-gehaeuse" value="A" required> A / Sehr gut</label>
+        <label><input type="radio" name="zustand-gehaeuse" value="B"> B / gut</label>
+        <label><input type="radio" name="zustand-gehaeuse" value="C"> C / in Ordnung</label>
+        <label><input type="radio" name="zustand-gehaeuse" value="D"> D / stark beschädigt</label>
+      </div>
+    </fieldset>
+
+    <!-- Zustand Display -->
+    <fieldset>
+      <legend>Zustand des Displays/Bildschirms</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="zustand-display" value="A" required> A / Sehr gut</label>
+        <label><input type="radio" name="zustand-display" value="B"> B / gut</label>
+        <label><input type="radio" name="zustand-display" value="C"> C / in Ordnung</label>
+        <label><input type="radio" name="zustand-display" value="D"> D / stark beschädigt</label>
+      </div>
+    </fieldset>
+
+    <!-- Bilder Upload -->
+    <fieldset>
+      <legend>Bilder vom Gerät</legend>
+      <div class="upload-row">
+        <button type="button" id="upload-trigger">HOCHLADEN</button>
+        <input type="file" id="file-input" accept="image/*" multiple hidden>
+        <span class="file-hint">Max. 3 Bilder (jpg, png)</span>
+      </div>
+      <div id="file-list"></div>
+    </fieldset>
+
+    <!-- Sonstige Informationen -->
+    <label for="sonstiges">
+      Sonstige Informationen
+      <textarea id="sonstiges" name="sonstiges" rows="3" placeholder="Weitere Angaben zu Ihrem Gerät …"></textarea>
+    </label>
+
+    <!-- Rechtlicher Hinweis -->
+    <article class="legal">
+      <p>Mit Abschicken dieses Formulars senden Sie uns eine unverbindliche Preisanfrage für Ihr Gerät. Wir melden uns zeitnah bei Ihnen.</p>
+      <p>Datenschutzhinweis: Personenbezogene Daten (E-Mail) werden ausschließlich für den Zweck der Kontaktaufnahme verarbeitet und werden nicht gespeichert.</p>
+    </article>
+
+    <!-- E-Mail -->
+    <label for="email">
+      Ihre E-Mail Adresse
+      <input type="email" id="email" name="email" placeholder="name@beispiel.de" required>
+    </label>
+
+    <button type="submit">PREIS ANFRAGEN</button>
+
+  </form>
+</main>
+
+<script>
+  // Beispielhafte Modell-Zuordnung je Hersteller — hier eigene Daten einsetzen
+  const MODELLE = {
+    "Apple": ["MacBook Air M1", "MacBook Air M2", "MacBook Pro 13\"", "MacBook Pro 14\"", "MacBook Pro 16\""],
+    "Dell": ["XPS 13", "XPS 15", "Latitude 5420", "Inspiron 15"],
+    "HP": ["EliteBook 840", "ProBook 450", "Spectre x360", "Pavilion 15"],
+    "Lenovo": ["ThinkPad X1 Carbon", "ThinkPad T14", "IdeaPad 5", "Yoga Slim 7"],
+    "Asus": ["ZenBook 14", "VivoBook 15", "ROG Zephyrus"],
+    "Acer": ["Swift 3", "Aspire 5", "Predator Helios"],
+    "Microsoft": ["Surface Laptop 4", "Surface Laptop 5", "Surface Book 3"],
+    "Sonstiges": ["Sonstiges Modell"]
+  };
+
+  const herstellerSelect = document.getElementById("hersteller");
+  const modellSelect = document.getElementById("modell");
+
+  herstellerSelect.addEventListener("change", () => {
+    const modelle = MODELLE[herstellerSelect.value] || [];
+    modellSelect.innerHTML = '<option value="" disabled selected>Bitte wählen</option>';
+    modelle.forEach(m => {
+      const opt = document.createElement("option");
+      opt.value = m;
+      opt.textContent = m;
+      modellSelect.appendChild(opt);
+    });
+    modellSelect.disabled = modelle.length === 0;
+  });
+
+  // Datei-Upload (max. 3 Bilder)
+  const uploadTrigger = document.getElementById("upload-trigger");
+  const fileInput = document.getElementById("file-input");
+  const fileList = document.getElementById("file-list");
+  const MAX_FILES = 3;
+  let selectedFiles = [];
+
+  uploadTrigger.addEventListener("click", () => fileInput.click());
+
+  fileInput.addEventListener("change", () => {
+    const incoming = Array.from(fileInput.files);
+    selectedFiles = [...selectedFiles, ...incoming].slice(0, MAX_FILES);
+    renderFileList();
+  });
+
+  function renderFileList(){
+    fileList.innerHTML = "";
+    selectedFiles.forEach(f => {
+      const div = document.createElement("div");
+      div.textContent = "📎 " + f.name;
+      fileList.appendChild(div);
+    });
+    if (selectedFiles.length >= MAX_FILES){
+      uploadTrigger.disabled = true;
+      uploadTrigger.setAttribute("aria-busy", "false");
+    }
+  }
+
+  // Formular-Absenden — hier eigene Sende-Logik (API/E-Mail) einbauen
+  document.getElementById("ankauf-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target).entries());
+    data.bilder = selectedFiles.map(f => f.name);
+    console.log("Preisanfrage:", data);
+    alert("Vielen Dank! Ihre Preisanfrage wurde erfasst (Demo — noch keine echte Übermittlung eingebaut).");
+  });
+</script>
+
+</body>
+</html>
